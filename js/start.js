@@ -2,17 +2,16 @@ $( document ).ready(function() {
 
     // Trigger the game loop by clicking on a position button on the board.
     $('.board button').click(function(e) {
+        var y_pos,
+            x_pos,
+            isTaken,
+            isAtBottom;
 
-        // Detect which button was clicked.
+        // Detect the x and y position of the button clicked.
         y_pos = $('.board tr').index($(this).closest('tr'));
         x_pos = $(this).closest('tr').find('td').index($(this).closest('td'));
 
-        console.log('x position is: ' + x_pos);
-        console.log('y position is: ' + y_pos);
-
         // Run tests to see if the move is illegal, or if it resulted in a win.
-        var isTaken, isAtBottom;
-
         isTaken = takenTest(x_pos, y_pos);
         if (isTaken === true) {
             alert("This position is already taken. Please make another choice.");

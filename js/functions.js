@@ -12,8 +12,6 @@ function addDiscToBoard(color, x_pos, y_pos) {
 
 
 function printBoard() {
-    // Start by just printing it in console.log.
-    console.log(board);
 
     // Loop through the board, and add classes to each cell for the
     // appropriate colors.
@@ -21,7 +19,6 @@ function printBoard() {
     for (y = 0; y <= 5; y++) {
         for (x = 0; x <= 6; x++) {
             if (board[y][x] !== 0) {
-                // row = $("tr:eq(" + y + ")");
                 cell = $("tr:eq(" + y + ")").find('td').eq(x);
                 cell.children('button').css("background-color", board[y][x]);
             }
@@ -91,7 +88,7 @@ function takenTest(x_pos, y_pos) {
 
 /**
  * Test to see if somebody got four consecutive horizontal pieces.
- * @return bool returns true or false
+ * @return bool Returns true if a win was found, and otherwise false.
  */
 function horizontalWin() {
     var currentValue,
@@ -122,7 +119,7 @@ function horizontalWin() {
 
 /**
  * Test to see if somebody got four consecutive horizontal pieces.
- * @return bool returns true or false
+ * @return bool Returns true if a win was found, and otherwise false.
  */
 function verticalWin() {
     var currentValue,
@@ -154,7 +151,7 @@ function verticalWin() {
 /**
  * Test to see if somebody got four consecutive horizontal pieces.
  * @todo: refactor this to make it more DRY.
- * @return bool returns true or false
+ * @return bool Returns true if a win was found, and otherwise false.
  */
 function diagonalWin() {
     var xtemp,
@@ -178,14 +175,14 @@ function diagonalWin() {
             }
             previousValue = currentValue;
 
-            // Shift down one diagonal index
+            // Shift down-right one diagonal index.
             xtemp++;
             ytemp++;
         }
         tally = 0;
     }
 
-    // test for down-left diagonals across the top.
+    // Test for down-left diagonals across the top.
     for (x = 0; x <= 6; x++) {
         xtemp = x;
         ytemp = 0;
@@ -200,7 +197,7 @@ function diagonalWin() {
             }
             previousValue = currentValue;
 
-            // Shift down one diagonal index
+            // Shift down-left one diagonal index.
             xtemp--;
             ytemp++;
         }
@@ -222,14 +219,14 @@ function diagonalWin() {
             }
             previousValue = currentValue;
 
-            // Shift down one diagonal index
+            // Shift down-right one diagonal index.
             xtemp++;
             ytemp++;
         }
         tally = 0;
     }
 
-    // test for down-left diagonals down the right side.
+    // Test for down-left diagonals down the right side.
     for (y = 0; y <= 5; y++) {
         xtemp = 6;
         ytemp = y;
@@ -244,7 +241,7 @@ function diagonalWin() {
             }
             previousValue = currentValue;
 
-            // Shift down one diagonal index
+            // Shift down-left one diagonal index.
             xtemp--;
             ytemp++;
         }
