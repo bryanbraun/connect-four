@@ -1,18 +1,42 @@
-h1,h2 {
+.title, .message {
   text-align: center;
 }
 
-.table {
-  margin: 100px auto 0;
+.wrapper {
+  margin: 50px auto 0;
   width: 450px;
 }
 
-.player {
+.player, .winner {
   text-transform: capitalize;
 }
 
-button {
+.board button {
   width: 60px;
   height: 60px;
   border-radius: 50%;
+}
+
+.red {
+  color: red;
+}
+
+.black {
+  color: black;
+}
+
+@media (max-width: 460px) {
+  .message {
+    font-size: 1.3em;
+  }
+
+  .wrapper {
+    margin: 20px auto 0;
+    width: 240px;
+  }
+
+  .board button {
+    width: 30px;
+    height: 30px;
+  }
 }

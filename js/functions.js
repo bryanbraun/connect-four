@@ -30,6 +30,7 @@ function printBoard() {
  * A function for changing players at the end of a turn.
  */
 function changePlayer() {
+    var nextPlayerName;
     // Change the value of our player variable.
     if (currentPlayer === 'black') {
         currentPlayer = 'red';
@@ -38,7 +39,7 @@ function changePlayer() {
     }
 
     // Update the UI.
-    $('.player').text(currentPlayer);
+    $('.player').css("color", currentPlayer).text(playerName[currentPlayer]);
 }
 
 /**
@@ -48,8 +49,7 @@ function changePlayer() {
  * @return bool returns true or false for the question "Is this at the bottom?".
  */
 function bottomTest(x_pos, y_pos) {
-    var isAtBottom,
-        fail;
+    var fail;
 
     // Start at the bottom of the column, and step up, checking to make sure
     // each position has been filled. Go until you reach the chosen position.
@@ -58,12 +58,8 @@ function bottomTest(x_pos, y_pos) {
             fail = true;
         }
     }
-    if (fail === true) {
-        isAtBottom = false;
-    } else {
-        isAtBottom = true;
-    }
-    return isAtBottom;
+
+    return fail === true ? false : true;
 }
 
 
@@ -74,16 +70,26 @@ function bottomTest(x_pos, y_pos) {
  * @return bool returns true or false for the question "Is this spot taken?".
  */
 function takenTest(x_pos, y_pos) {
-    var isTaken,
-        value = board[y_pos][x_pos];
+    var value = board[y_pos][x_pos];
 
-    if (value === 0) {
-        isTaken = false;
-    } else {
-        isTaken = true;
+    return value === 0 ? false : true;
+}
+
+/**
+ * Determine if the game is a draw (all peices on the board are filled).
+ * @return bool Returns true or false for the question "Is this a draw?".
+ */
+function gameIsDraw() {
+    for (y = 0; y <= 5; y++) {
+        for (x = 0; x <= 6; x++) {
+            if (board[y][x] === 0) {
+                return false;
+            }
+        }
     }
 
-    return isTaken;
+    // No locations were empty. Return true to indicate that the game is a draw.
+    return true;
 }
 
 /**
@@ -92,7 +98,7 @@ function takenTest(x_pos, y_pos) {
  */
 function horizontalWin() {
     var currentValue,
-        previousValue = 'none',
+        previousValue = 0,
         tally = 0;
 
     // Scan each row in series, tallying the length of each series. If a series
@@ -102,6 +108,9 @@ function horizontalWin() {
             currentValue = board[y][x];
             if (currentValue === previousValue && currentValue !== 0) {
                 tally += 1;
+            } else {
+                // Reset the tally if you find a gap.
+                tally = 0;
             }
             if (tally === 3) {
                 return true;
@@ -109,8 +118,9 @@ function horizontalWin() {
             previousValue = currentValue;
         }
 
-        // After each row, reset the tally.
+        // After each row, reset the tally and previous value.
         tally = 0;
+        previousValue = 0;
     }
 
     // No horizontal win was found.
@@ -123,7 +133,7 @@ function horizontalWin() {
  */
 function verticalWin() {
     var currentValue,
-        previousValue = 'none',
+        previousValue = 0,
         tally = 0;
 
     // Scan each column in series, tallying the length of each series. If a
@@ -133,6 +143,9 @@ function verticalWin() {
             currentValue = board[y][x];
             if (currentValue === previousValue && currentValue !== 0) {
                 tally += 1;
+            } else {
+                // Reset the tally if you find a gap.
+                tally = 0;
             }
             if (tally === 3) {
                 return true;
@@ -140,8 +153,9 @@ function verticalWin() {
             previousValue = currentValue;
         }
 
-        // After each column, reset the tally.
+        // After each column, reset the tally and previous value.
         tally = 0;
+        previousValue = 0;
     }
 
     // No vertical win was found.
@@ -157,7 +171,7 @@ function diagonalWin() {
     var xtemp,
         ytemp,
         currentValue,
-        previousValue = 'none',
+        previousValue = 0,
         tally = 0;
 
     // Test for down-right diagonals across the top.
@@ -169,6 +183,9 @@ function diagonalWin() {
             currentValue = board[ytemp][xtemp];
             if (currentValue === previousValue && currentValue !== 0) {
                 tally += 1;
+            } else {
+                // Reset the tally if you find a gap.
+                tally = 0;
             }
             if (tally === 3) {
                 return true;
@@ -180,6 +197,7 @@ function diagonalWin() {
             ytemp++;
         }
         tally = 0;
+        previousValue = 0;
     }
 
     // Test for down-left diagonals across the top.
@@ -191,6 +209,9 @@ function diagonalWin() {
             currentValue = board[ytemp][xtemp];
             if (currentValue === previousValue && currentValue !== 0) {
                 tally += 1;
+            } else {
+                // Reset the tally if you find a gap.
+                tally = 0;
             }
             if (tally === 3) {
                 return true;
@@ -202,6 +223,7 @@ function diagonalWin() {
             ytemp++;
         }
         tally = 0;
+        previousValue = 0;
     }
 
     // Test for down-right diagonals down the left side.
@@ -213,6 +235,9 @@ function diagonalWin() {
             currentValue = board[ytemp][xtemp];
             if (currentValue === previousValue && currentValue !== 0) {
                 tally += 1;
+            } else {
+                // Reset the tally if you find a gap.
+                tally = 0;
             }
             if (tally === 3) {
                 return true;
@@ -224,6 +249,7 @@ function diagonalWin() {
             ytemp++;
         }
         tally = 0;
+        previousValue = 0;
     }
 
     // Test for down-left diagonals down the right side.
@@ -235,6 +261,9 @@ function diagonalWin() {
             currentValue = board[ytemp][xtemp];
             if (currentValue === previousValue && currentValue !== 0) {
                 tally += 1;
+            } else {
+                // Reset the tally if you find a gap.
+                tally = 0;
             }
             if (tally === 3) {
                 return true;
@@ -246,8 +275,10 @@ function diagonalWin() {
             ytemp++;
         }
         tally = 0;
+        previousValue = 0;
     }
 
     // No diagonal wins found. Return false.
     return false;
 }
+
