@@ -1,4 +1,12 @@
-.title, .message {
+body {
+  font-family: 'Palatino', 'Garamond', serif;
+}
+
+h1 {
+  font-size: 2em;
+}
+
+.info {
   text-align: center;
 }
 
@@ -7,22 +15,52 @@
   width: 450px;
 }
 
-.player, .winner {
-  text-transform: capitalize;
-}
-
 .board button {
   width: 60px;
   height: 60px;
   border-radius: 50%;
+  border: 0;
 }
 
-.red {
+button.red {
+  background: #000;
+  background: linear-gradient(to bottom, #ff1616 0%,#ad0505 100%);
+}
+
+button.black {
+  background: #000;
+  background: linear-gradient(to bottom, #333 0%,#000000 100%);
+}
+
+#player {
+  text-transform: capitalize;
+}
+
+.info .red {
   color: red;
 }
 
-.black {
+.info .black {
   color: black;
+}
+
+.play-again {
+  display: none;
+}
+.play-again {
+  display: inline-block;
+  margin-bottom: 2em;
+  height: 40px;
+  line-height: 40px;
+  width: 50%;
+  background: mediumseagreen;
+  color: white;
+  text-decoration: none;
+  font-family: helvetica;
+  opacity: 0.9;
+}
+.play-again:hover {
+  opacity: 1;
 }
 
 @media (max-width: 460px) {

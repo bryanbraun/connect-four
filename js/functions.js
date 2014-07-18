@@ -15,12 +15,11 @@ function printBoard() {
 
     // Loop through the board, and add classes to each cell for the
     // appropriate colors.
-    var column, row;
     for (y = 0; y <= 5; y++) {
         for (x = 0; x <= 6; x++) {
             if (board[y][x] !== 0) {
                 cell = $("tr:eq(" + y + ")").find('td').eq(x);
-                cell.children('button').css("background-color", board[y][x]);
+                cell.children('button').addClass(board[y][x]);
             }
         }
     }
@@ -30,7 +29,6 @@ function printBoard() {
  * A function for changing players at the end of a turn.
  */
 function changePlayer() {
-    var nextPlayerName;
     // Change the value of our player variable.
     if (currentPlayer === 'black') {
         currentPlayer = 'red';
@@ -39,37 +37,37 @@ function changePlayer() {
     }
 
     // Update the UI.
-    $('.player').css("color", currentPlayer).text(playerName[currentPlayer]);
+    $('#player').removeClass().addClass(currentPlayer).text(config[currentPlayer + "PlayerName"]);
 }
 
 /**
- * Test to ensure the chosen location is at the bottom of the column.
+ * If there are empty positions below the one chose, return the new y-position
+ * we should drop the piece to.
+ *
  * @param int x_pos The x-position of the location chosen.
  * @param int y_pos The y-position of the location chosen.
  * @return bool returns true or false for the question "Is this at the bottom?".
  */
-function bottomTest(x_pos, y_pos) {
-    var fail;
-
+function dropToBottom(x_pos, y_pos) {
     // Start at the bottom of the column, and step up, checking to make sure
-    // each position has been filled. Go until you reach the chosen position.
+    // each position has been filled. If one hasn't, return the empty position.
     for (y = 5; y > y_pos; y--) {
         if (board[y][x_pos] === 0) {
-            fail = true;
+            return y;
         }
     }
 
-    return fail === true ? false : true;
+    return y_pos;
 }
-
 
 /**
  * Test to ensure the chosen location isn't taken.
+ *
  * @param int x_pos The x-position of the location chosen.
  * @param int y_pos The y-position of the location chosen.
  * @return bool returns true or false for the question "Is this spot taken?".
  */
-function takenTest(x_pos, y_pos) {
+function positionIsTaken(x_pos, y_pos) {
     var value = board[y_pos][x_pos];
 
     return value === 0 ? false : true;
@@ -77,6 +75,7 @@ function takenTest(x_pos, y_pos) {
 
 /**
  * Determine if the game is a draw (all peices on the board are filled).
+ *
  * @return bool Returns true or false for the question "Is this a draw?".
  */
 function gameIsDraw() {
@@ -94,6 +93,7 @@ function gameIsDraw() {
 
 /**
  * Test to see if somebody got four consecutive horizontal pieces.
+ *
  * @return bool Returns true if a win was found, and otherwise false.
  */
 function horizontalWin() {
@@ -112,7 +112,7 @@ function horizontalWin() {
                 // Reset the tally if you find a gap.
                 tally = 0;
             }
-            if (tally === 3) {
+            if (tally === config.countToWin - 1) {
                 return true;
             }
             previousValue = currentValue;
@@ -128,7 +128,8 @@ function horizontalWin() {
 }
 
 /**
- * Test to see if somebody got four consecutive horizontal pieces.
+ * Test to see if somebody got four consecutive vertical pieces.
+ *
  * @return bool Returns true if a win was found, and otherwise false.
  */
 function verticalWin() {
@@ -147,7 +148,7 @@ function verticalWin() {
                 // Reset the tally if you find a gap.
                 tally = 0;
             }
-            if (tally === 3) {
+            if (tally === config.countToWin - 1) {
                 return true;
             }
             previousValue = currentValue;
@@ -164,6 +165,7 @@ function verticalWin() {
 
 /**
  * Test to see if somebody got four consecutive horizontal pieces.
+ *
  * @todo: refactor this to make it more DRY.
  * @return bool Returns true if a win was found, and otherwise false.
  */
@@ -187,7 +189,7 @@ function diagonalWin() {
                 // Reset the tally if you find a gap.
                 tally = 0;
             }
-            if (tally === 3) {
+            if (tally === config.countToWin - 1) {
                 return true;
             }
             previousValue = currentValue;
@@ -196,6 +198,7 @@ function diagonalWin() {
             xtemp++;
             ytemp++;
         }
+        // Reset the tally and previous value when changing diagonals.
         tally = 0;
         previousValue = 0;
     }
@@ -213,7 +216,7 @@ function diagonalWin() {
                 // Reset the tally if you find a gap.
                 tally = 0;
             }
-            if (tally === 3) {
+            if (tally === config.countToWin - 1) {
                 return true;
             }
             previousValue = currentValue;
@@ -222,6 +225,7 @@ function diagonalWin() {
             xtemp--;
             ytemp++;
         }
+        // Reset the tally and previous value when changing diagonals.
         tally = 0;
         previousValue = 0;
     }
@@ -239,7 +243,7 @@ function diagonalWin() {
                 // Reset the tally if you find a gap.
                 tally = 0;
             }
-            if (tally === 3) {
+            if (tally === config.countToWin - 1) {
                 return true;
             }
             previousValue = currentValue;
@@ -248,6 +252,7 @@ function diagonalWin() {
             xtemp++;
             ytemp++;
         }
+        // Reset the tally and previous value when changing diagonals.
         tally = 0;
         previousValue = 0;
     }
@@ -265,7 +270,7 @@ function diagonalWin() {
                 // Reset the tally if you find a gap.
                 tally = 0;
             }
-            if (tally === 3) {
+            if (tally === config.countToWin - 1) {
                 return true;
             }
             previousValue = currentValue;
@@ -274,6 +279,7 @@ function diagonalWin() {
             xtemp--;
             ytemp++;
         }
+        // Reset the tally and previous value when changing diagonals.
         tally = 0;
         previousValue = 0;
     }

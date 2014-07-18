@@ -1,29 +1,25 @@
 $( document ).ready(function() {
 
-    playerName.black = prompt("Please enter the first player's name. This player will use black game pieces.", "Player 1") || 'Player 1';
-    playerName.red = prompt("Please enter the second player's name. This player will use red game pieces.", "Player 2") || 'Player 2';
-    $('.message').html('Current Player is: <span class="player">' + playerName[currentPlayer] + '</span>.');
+    // Setup game.
+    config.blackPlayerName = prompt("Please enter the first player's name. This player will use black game pieces.", config.blackPlayerName) || config.blackPlayerName;
+    config.redPlayerName = prompt("Please enter the second player's name. This player will use red game pieces.", config.redPlayerName) || config.redPlayerName;
+    $('.prefix').text(config.playerPrefix);
+    $('#player').addClass(currentPlayer).text(config[currentPlayer + "PlayerName"]);
 
-    // Trigger the game loop by clicking on a position button on the board.
+    // Trigger the game sequence by clicking on a position button on the board.
     $('.board button').click(function(e) {
         var y_pos,
-            x_pos,
-            isTaken,
-            isAtBottom;
+            x_pos;
 
         // Detect the x and y position of the button clicked.
         y_pos = $('.board tr').index($(this).closest('tr'));
         x_pos = $(this).closest('tr').find('td').index($(this).closest('td'));
 
-        // Run tests to see if the move is illegal, or if it resulted in a win.
-        isTaken = takenTest(x_pos, y_pos);
-        if (isTaken === true) {
-            alert("This position is already taken. Please make another choice.");
-            return;
-        }
-        isAtBottom = bottomTest(x_pos, y_pos);
-        if (isAtBottom === false) {
-            alert("Please choose a location at the bottom of the column.");
+        // Ensure the piece falls to the bottom of the column.
+        y_pos = dropToBottom(x_pos, y_pos);
+
+        if (positionIsTaken(x_pos, y_pos)) {
+            alert(config.takenMsg);
             return;
         }
 
@@ -32,21 +28,30 @@ $( document ).ready(function() {
 
         // Check to see if we have a winner.
         if (verticalWin() || horizontalWin() || diagonalWin()) {
-            alert("The winner is: "+ playerName[currentPlayer]);
+            alert(config.winPrefix + config[currentPlayer + "PlayerName"]);
 
             // Destroy our click listener to prevent further play.
             $('.board button').unbind('click');
-            $('.message').html('The winner is: <span class="' + currentPlayer + '">' + playerName[currentPlayer] + '</span>! <a href="#" onClick="location.reload();">Play Again</a>.');
+            $('.prefix').text(config.winPrefix);
+            $('.play-again').show("slow");
+            return;
 
         } else if(gameIsDraw()) {
-            alert("This game is a draw.");
+            alert(config.drawMsg);
 
             // Destroy our click listener to prevent further play.
             $('.board button').unbind('click');
-            $('.message').html('This game is a draw. <a href="#" onClick="location.reload();">Play Again</a>.');
+            $('.message').text(config.drawMsg);
+            $('.play-again').show("slow");
+            return;
         }
 
         changePlayer();
 
     });
+
+    $('.play-again').click(function(e) {
+        location.reload();
+    });
+
 });
