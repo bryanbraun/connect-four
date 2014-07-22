@@ -1,4 +1,4 @@
-$( document ).ready(function() {
+$(document).ready(function() {
 
     // Trigger the game loop by clicking on a position button on the board.
     $('.board button').click(function(e) {
@@ -29,11 +29,20 @@ $( document ).ready(function() {
 
         // Check to see if we have a winner.
         if (verticalWin() || horizontalWin() || diagonalWin()) {
-            alert("The winner is: "+ currentPlayer);
 
             // Destroy our click listener to prevent further play.
             $('.board button').unbind('click');
-            $('h2').replaceWith('<h2 class="winner">The winner is: ' + currentPlayer + '! <a href="#" onClick="location.reload();">Play Again</a>.</h2>');
+            $('.prefix').text(config.winPrefix);
+            $('.play-again').show("slow");
+            return;
+
+        } else if(gameIsDraw()) {
+
+            // Destroy our click listener to prevent further play.
+            $('.board button').unbind('click');
+            $('.message').text(config.drawMsg);
+            $('.play-again').show("slow");
+            return;
         }
 
         changePlayer();
