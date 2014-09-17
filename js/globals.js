@@ -4,7 +4,14 @@
 // @todo: Store row & column count in config and have the game adjust
 //        automatically. Keep the board below in a comment for reference. See
 //        http://stackoverflow.com/a/2716973/1154642 for how to build the table
-//        automatically with loops.
+//        automatically with loops. Maybe expose the option to users... but
+//        probably not, to keep the UI simple.
+// @todo: Idea: eliminate global variables and methods by making them all part
+//        of a private anonymous function? See: Anonymous Functions And The
+//        Module Pattern (http://www.smashingmagazine.com/2010/04/20/seven-javascript-things-i-wish-i-knew-much-earlier-in-my-career/).
+//        Note: I'm not sure how to do this across multiple files...
+// @todo: Extra credit. Make this accessible (keyboard navigation + screen-
+//        reader friendly).
 var config = {
         blackPlayerName: "Player 1",
         redPlayerName: "Player 2",

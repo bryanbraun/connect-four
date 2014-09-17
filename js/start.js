@@ -1,6 +1,7 @@
 $(document).ready(function() {
 
     // Setup game.
+    // @todo: Make name pop-ups more user-friendly. Perhaps optional?
     config.blackPlayerName = prompt("Please enter the first player's name. This player will use black game pieces.", config.blackPlayerName) || config.blackPlayerName;
     config.redPlayerName = prompt("Please enter the second player's name. This player will use red game pieces.", config.redPlayerName) || config.redPlayerName;
     $('.prefix').text(config.playerPrefix);
@@ -8,12 +9,9 @@ $(document).ready(function() {
 
     // Trigger the game sequence by clicking on a position button on the board.
     $('.board button').click(function(e) {
-        var y_pos,
-            x_pos;
-
         // Detect the x and y position of the button clicked.
-        y_pos = $('.board tr').index($(this).closest('tr'));
-        x_pos = $(this).closest('tr').find('td').index($(this).closest('td'));
+        var y_pos = $('.board tr').index($(this).closest('tr'));
+        var x_pos = $(this).closest('tr').find('td').index($(this).closest('td'));
 
         // Ensure the piece falls to the bottom of the column.
         y_pos = dropToBottom(x_pos, y_pos);
@@ -35,7 +33,7 @@ $(document).ready(function() {
             $('.play-again').show("slow");
             return;
 
-        } else if(gameIsDraw()) {
+        } else if (gameIsDraw()) {
 
             // Destroy our click listener to prevent further play.
             $('.board button').unbind('click');

@@ -20,10 +20,11 @@ h1 {
   height: 60px;
   border-radius: 50%;
   border: 0;
+  background: #bbb;
 }
 
 button.red {
-  background: #000;
+  background: #ad0505;
   background: linear-gradient(to bottom, #ff1616 0%,#ad0505 100%);
 }
 
@@ -32,7 +33,7 @@ button.black {
   background: linear-gradient(to bottom, #333 0%,#000000 100%);
 }
 
-#player {
+.player {
   text-transform: capitalize;
 }
 

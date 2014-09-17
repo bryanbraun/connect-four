@@ -15,10 +15,10 @@ function printBoard() {
 
     // Loop through the board, and add classes to each cell for the
     // appropriate colors.
-    for (y = 0; y <= 5; y++) {
-        for (x = 0; x <= 6; x++) {
+    for (var y = 0; y <= 5; y++) {
+        for (var x = 0; x <= 6; x++) {
             if (board[y][x] !== 0) {
-                cell = $("tr:eq(" + y + ")").find('td').eq(x);
+                var cell = $("tr:eq(" + y + ")").find('td').eq(x);
                 cell.children('button').addClass(board[y][x]);
             }
         }
@@ -51,7 +51,7 @@ function changePlayer() {
 function dropToBottom(x_pos, y_pos) {
     // Start at the bottom of the column, and step up, checking to make sure
     // each position has been filled. If one hasn't, return the empty position.
-    for (y = 5; y > y_pos; y--) {
+    for (var y = 5; y > y_pos; y--) {
         if (board[y][x_pos] === 0) {
             return y;
         }
@@ -79,8 +79,8 @@ function positionIsTaken(x_pos, y_pos) {
  * @return bool Returns true or false for the question "Is this a draw?".
  */
 function gameIsDraw() {
-    for (y = 0; y <= 5; y++) {
-        for (x = 0; x <= 6; x++) {
+    for (var y = 0; y <= 5; y++) {
+        for (var x = 0; x <= 6; x++) {
             if (board[y][x] === 0) {
                 return false;
             }
@@ -97,14 +97,14 @@ function gameIsDraw() {
  * @return bool Returns true if a win was found, and otherwise false.
  */
 function horizontalWin() {
-    var currentValue,
+    var currentValue = null,
         previousValue = 0,
         tally = 0;
 
     // Scan each row in series, tallying the length of each series. If a series
     // ever reaches four, return true for a win.
-    for (y = 0; y <= 5; y++) {
-        for (x = 0; x <= 6; x++) {
+    for (var y = 0; y <= 5; y++) {
+        for (var x = 0; x <= 6; x++) {
             currentValue = board[y][x];
             if (currentValue === previousValue && currentValue !== 0) {
                 tally += 1;
@@ -133,14 +133,14 @@ function horizontalWin() {
  * @return bool Returns true if a win was found, and otherwise false.
  */
 function verticalWin() {
-    var currentValue,
+    var currentValue = null,
         previousValue = 0,
         tally = 0;
 
     // Scan each column in series, tallying the length of each series. If a
     // series ever reaches four, return true for a win.
-    for (x = 0; x <= 6; x++) {
-        for (y = 0; y <= 5; y++) {
+    for (var x = 0; x <= 6; x++) {
+        for (var y = 0; y <= 5; y++) {
             currentValue = board[y][x];
             if (currentValue === previousValue && currentValue !== 0) {
                 tally += 1;
@@ -164,15 +164,17 @@ function verticalWin() {
 }
 
 /**
- * Test to see if somebody got four consecutive horizontal pieces.
+ * Test to see if somebody got four consecutive diagonel pieces.
  *
  * @todo: refactor this to make it more DRY.
  * @return bool Returns true if a win was found, and otherwise false.
  */
 function diagonalWin() {
-    var xtemp,
-        ytemp,
-        currentValue,
+    var x = null,
+        y = null,
+        xtemp = null,
+        ytemp = null,
+        currentValue = null,
         previousValue = 0,
         tally = 0;
 
