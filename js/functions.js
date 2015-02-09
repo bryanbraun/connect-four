@@ -1,4 +1,3 @@
-
 /**
  * A function for adding a disc to our Connect Four board.
  *
@@ -10,9 +9,10 @@ function addDiscToBoard(color, x_pos, y_pos) {
     board[y_pos][x_pos] = color;
 }
 
-
+/**
+ * Print the contents of our `board` variable to the html page.
+ */
 function printBoard() {
-
     // Loop through the board, and add classes to each cell for the
     // appropriate colors.
     for (var y = 0; y <= 5; y++) {
@@ -289,4 +289,3 @@ function diagonalWin() {
     // No diagonal wins found. Return false.
     return false;
 }
-

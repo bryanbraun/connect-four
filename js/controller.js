@@ -26,7 +26,6 @@ $(document).ready(function() {
 
         // Check to see if we have a winner.
         if (verticalWin() || horizontalWin() || diagonalWin()) {
-
             // Destroy our click listener to prevent further play.
             $('.board button').unbind('click');
             $('.prefix').text(config.winPrefix);
@@ -34,7 +33,6 @@ $(document).ready(function() {
             return;
 
         } else if (gameIsDraw()) {
-
             // Destroy our click listener to prevent further play.
             $('.board button').unbind('click');
             $('.message').text(config.drawMsg);
@@ -43,7 +41,6 @@ $(document).ready(function() {
         }
 
         changePlayer();
-
     });
 
     $('.play-again').click(function(e) {
