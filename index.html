@@ -8,19 +8,21 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <link rel="stylesheet" type="text/css" href="css/main.css">
-  <script src="js/jquery-2.1.1.min.js"></script>
-  <script src="js/vars.js"></script>
-  <script src="js/functions.js"></script>
-  <script src="js/controller.js"></script>
+  <style id="a11y-styles"></style>
 </head>
 <body>
   <section class="wrapper">
     <div class="info">
       <h1 class="title">Play Connect Four!</h1>
-      <h2 class="message"><span class="prefix"></span><span id="player" class="player">&nbsp;</span></h2>
-      <a href="#" class="play-again" style="display: none;">Play Again</a>
+      <h2 id="top-text" class="top-text">
+        <span id="prefix"></span>
+        <span id="player-name"></span>
+      </h2>
+      <div id="play-again" class="play-again">
+        <a href="#" class="play-again-btn" id="play-again-btn">Play Again</a>
+      </div>
     </div>
-    <table class="board">
+    <table id="board" class="board">
       <tbody>
         <tr>
           <td><button type="button"></button></td>
@@ -80,5 +82,10 @@
     </table>
   </section>
   <a href="https://github.com/bryanbraun/connect-four"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/365986a132ccd6a44c23a9169022c0b5c890c387/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f7265645f6161303030302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png"></a>
+
+  <script src="js/vars.js"></script>
+  <script src="js/accessibility.js"></script>
+  <script src="js/functions.js"></script>
+  <script src="js/main.js"></script>
 </body>
 </html>

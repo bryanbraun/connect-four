@@ -22,6 +22,16 @@ h1 {
   border: 0;
   background: #bbb;
 }
+/* no focus rings by default... focus borders get added via js */
+.board button:hover {
+  background: #999;
+}
+.board button:focus {
+  outline: 0;
+}
+.board button::-moz-focus-inner {
+  border: 0;
+}
 
 button.red {
   background: #ad0505;
@@ -33,10 +43,6 @@ button.black {
   background: linear-gradient(to bottom, #333 0%,#000000 100%);
 }
 
-.player {
-  text-transform: capitalize;
-}
-
 .info .red {
   color: red;
 }
@@ -46,9 +52,15 @@ button.black {
 }
 
 .play-again {
-  display: none;
+  height: 0px;
+  overflow: hidden;
 }
-.play-again {
+.play-again.show {
+  height: 72px;
+  transition: 0.75s;
+}
+
+.play-again-btn {
   display: inline-block;
   margin-bottom: 2em;
   height: 40px;
@@ -60,12 +72,16 @@ button.black {
   font-family: helvetica;
   opacity: 0.9;
 }
+.play-again-btn:hover,
+.play-again-btn:focus {
+  background: #359660;
+}
 .play-again:hover {
   opacity: 1;
 }
 
 @media (max-width: 460px) {
-  .message {
+  .top-text {
     font-size: 1.3em;
   }
 
