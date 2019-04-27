@@ -5,6 +5,5 @@
   document.addEventListener('keydown', () => styleEl.innerHTML = '.board button:focus{border:5px solid #999}');
   document.addEventListener('mousedown', () => styleEl.innerHTML = '');
 
-  // Enable arrow keys for navigating the board
-  // @TODO
+  // @todo: enable arrow keys for navigating the board
 })();
