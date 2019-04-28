@@ -22,10 +22,10 @@ h1 {
   border: 0;
   background: #bbb;
 }
-/* no focus rings by default... focus borders get added via js */
 .board button:hover {
-  background: #999;
+  filter: brightness(75%);
 }
+/* no focus rings by default... focus borders get added via js */
 .board button:focus {
   outline: 0;
 }

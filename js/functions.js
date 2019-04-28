@@ -1,7 +1,6 @@
-// General-purpose functions for actions in the game.
+// General-purpose actions in the game.
 
-Game.actions = (function() {
-
+Game.do = (function() {
   /**
    * A function for adding a disc to our Connect Four board state.
    *
@@ -13,24 +12,13 @@ Game.actions = (function() {
   }
 
   /**
-   * Test to ensure the chosen location isn't taken.
-   *
-   * @param number x_pos The x-position of the location chosen.
-   * @param number y_pos The y-position of the location chosen.
-   * @return bool returns true or false for the question "Is this spot taken?".
-   */
-  function positionIsTaken(x_pos, y_pos) {
-    return Game.board[y_pos][x_pos] !== 0;
-  }
-
-  /**
    * Print the contents of our Game.board state to the html page.
    */
   function printBoard() {
     var row, cell;
     for (var y = 0; y <= Game.config.boardHeight; y++) {
       for (var x = 0; x <= Game.config.boardLength; x++) {
-        if (positionIsTaken(x, y)) {
+        if (Game.check.isPositionTaken(x, y)) {
           row = document.querySelector('tr:nth-child(' + (1 + y) + ')');
           cell = row.querySelector('td:nth-child(' + (1 + x) + ')');
           cell.firstChild.classList.add(Game.board[y][x]);
@@ -64,12 +52,35 @@ Game.actions = (function() {
     // Start at the bottom of the column, and step up, checking to make sure
     // each position has been filled. If one hasn't, return the empty position.
     for (var y = Game.config.boardHeight; y > y_pos; y--) {
-      if (!positionIsTaken(x_pos, y)) {
+      if (!Game.check.isPositionTaken(x_pos, y)) {
         return y;
       }
     }
-
     return y_pos;
+  }
+
+  return {
+    addDiscToBoard,
+    printBoard,
+    changePlayer,
+    dropToBottom
+  };
+})();
+
+
+
+// General-purpose status checks for the game.
+
+Game.check = (function() {
+  /**
+   * Test to ensure the chosen location isn't taken.
+   *
+   * @param number x_pos The x-position of the location chosen.
+   * @param number y_pos The y-position of the location chosen.
+   * @return bool returns true or false for the question "Is this spot taken?".
+   */
+  function isPositionTaken(x_pos, y_pos) {
+    return Game.board[y_pos][x_pos] !== 0;
   }
 
   /**
@@ -77,15 +88,14 @@ Game.actions = (function() {
    *
    * @return bool Returns true or false for the question "Is this a draw?".
    */
-  function gameIsDraw() {
+  function isGameADraw() {
     for (var y = 0; y <= Game.config.boardHeight; y++) {
       for (var x = 0; x <= Game.config.boardLength; x++) {
-        if (positionIsTaken(x, y)) {
+        if (isPositionTaken(x, y)) {
           return false;
         }
       }
     }
-
     return true;
   }
 
@@ -94,7 +104,7 @@ Game.actions = (function() {
    *
    * @return bool Returns true if a win was found, and otherwise false.
    */
-  function horizontalWin() {
+  function isHorizontalWin() {
     var currentValue = null,
         previousValue = 0,
         tally = 0;
@@ -130,7 +140,7 @@ Game.actions = (function() {
    *
    * @return bool Returns true if a win was found, and otherwise false.
    */
-  function verticalWin() {
+  function isVerticalWin() {
     var currentValue = null,
         previousValue = 0,
         tally = 0;
@@ -167,7 +177,7 @@ Game.actions = (function() {
    * @todo: refactor this to make it more DRY.
    * @return bool Returns true if a win was found, and otherwise false.
    */
-  function diagonalWin() {
+  function isDiagonalWin() {
     var x = null,
         y = null,
         xtemp = null,
@@ -289,15 +299,11 @@ Game.actions = (function() {
   }
 
  return {
-   addDiscToBoard,
-   positionIsTaken,
-   printBoard,
-   changePlayer,
-   dropToBottom,
-   gameIsDraw,
-   horizontalWin,
-   verticalWin,
-   diagonalWin
+   isPositionTaken,
+   isGameADraw,
+   isHorizontalWin,
+   isVerticalWin,
+   isDiagonalWin
  }
 
 })();

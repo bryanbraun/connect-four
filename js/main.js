@@ -32,24 +32,24 @@
     var x_pos = targetRowCells.indexOf(targetCell);
 
     // Ensure the piece falls to the bottom of the column.
-    y_pos = Game.actions.dropToBottom(x_pos, y_pos);
+    y_pos = Game.do.dropToBottom(x_pos, y_pos);
 
-    if (Game.actions.positionIsTaken(x_pos, y_pos)) {
+    if (Game.check.isPositionTaken(x_pos, y_pos)) {
       alert(Game.config.takenMsg);
       return;
     }
 
     // Add the piece to the board.
-    Game.actions.addDiscToBoard(x_pos, y_pos);
-    Game.actions.printBoard();
+    Game.do.addDiscToBoard(x_pos, y_pos);
+    Game.do.printBoard();
 
     // Check to see if we have a winner.
-    if (Game.actions.verticalWin() || Game.actions.horizontalWin() || Game.actions.diagonalWin()) {
+    if (Game.check.isVerticalWin() || Game.check.isHorizontalWin() || Game.check.isDiagonalWin()) {
       gameBoardEl.removeEventListener('click', placeGamePiece);
       prefixEl.textContent = Game.config.winPrefix;
       playAgainEl.classList.add('show');
       return;
-    } else if (Game.actions.gameIsDraw()) {
+    } else if (Game.check.isGameADraw()) {
       gameBoardEl.removeEventListener('click', placeGamePiece);
       topTextEl.textContent = Game.config.drawMsg;
       playAgainEl.classList.add('show');
@@ -57,7 +57,7 @@
     }
 
     // Change player.
-    Game.actions.changePlayer();
+    Game.do.changePlayer();
   };
 
 })();
