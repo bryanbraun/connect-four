@@ -1,5 +1,7 @@
 body {
   font-family: 'Palatino', 'Garamond', serif;
+  padding: 0.1px; /* prevent margin overflow */
+  margin: 0;
 }
 
 h1 {
@@ -13,6 +15,19 @@ h1 {
 .wrapper {
   margin: 50px auto 0;
   width: 450px;
+}
+
+.keyboard-friendly {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  padding: 12px;
+  background: rgba(255,255,255,0.75);
+}
+
+.keyboard-friendly-img {
+  width: 70px;
+  display: block;
 }
 
 .board button {

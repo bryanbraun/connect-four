@@ -174,7 +174,6 @@ Game.check = (function() {
   /**
    * Test to see if somebody got four consecutive diagonel pieces.
    *
-   * @todo: refactor this to make it more DRY.
    * @return bool Returns true if a win was found, and otherwise false.
    */
   function isDiagonalWin() {
