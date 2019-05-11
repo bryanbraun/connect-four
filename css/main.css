@@ -4,17 +4,19 @@ body {
   margin: 0;
 }
 
-h1 {
+.title {
   font-size: 2em;
-}
-
-.info {
-  text-align: center;
 }
 
 .wrapper {
   margin: 50px auto 0;
   width: 450px;
+}
+@media (max-width: 460px) {
+  .wrapper {
+    margin: 20px auto 0;
+    width: 240px;
+  }
 }
 
 .keyboard-friendly {
@@ -47,23 +49,19 @@ h1 {
 .board button::-moz-focus-inner {
   border: 0;
 }
-
-button.red {
+.board button.red {
   background: #ad0505;
   background: linear-gradient(to bottom, #ff1616 0%,#ad0505 100%);
 }
-
-button.black {
+.board button.black {
   background: #000;
   background: linear-gradient(to bottom, #333 0%,#000000 100%);
 }
-
-.info .red {
-  color: red;
-}
-
-.info .black {
-  color: black;
+@media (max-width: 460px) {
+  .board button {
+    width: 30px;
+    height: 30px;
+  }
 }
 
 .play-again {
@@ -71,7 +69,7 @@ button.black {
   overflow: hidden;
 }
 .play-again.show {
-  height: 72px;
+  height: 40px;
   transition: 0.75s;
 }
 
@@ -95,18 +93,59 @@ button.black {
   opacity: 1;
 }
 
+.top-text {
+  margin-bottom: 2rem;
+}
 @media (max-width: 460px) {
   .top-text {
     font-size: 1.3em;
   }
+}
+.primary .red,
+.primary .black {
+  position: relative;
+}
+.primary .red::after,
+.primary .black::after {
+  display: block;
+  width: 16px;
+  height: 16px;
+  content: "";
+  position: absolute;
+  right: 6px;
+  top: 4px;
+  border-radius: 50%;
+}
+.primary .red::after {
+  background: linear-gradient(to bottom, #ff1616 0%,#ad0505 100%);
+}
+.primary .black::after {
+  background: linear-gradient(to bottom, #333 0%,#000000 100%);
+}
 
-  .wrapper {
-    margin: 20px auto 0;
-    width: 240px;
-  }
+.primary {
+  color: black;
+  margin: 0 0 0.75rem;
+}
+.primary [contenteditable] {
+  border-bottom: 1px solid black;
+  padding: 0 50px 0 6px;
+}
+.secondary {
+  color: #bbb;
+  margin: 0;
+}
+.secondary [contenteditable] {
+  border-bottom: 1px solid #bbb;
+  padding: 0 50px 0 5px;
+}
 
-  .board button {
-    width: 30px;
-    height: 30px;
-  }
+.center {
+  text-align: center;
+}
+.left {
+  text-align: left;
+}
+.right {
+  text-align: right;
 }

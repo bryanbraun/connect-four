@@ -21,7 +21,7 @@ Game.do = (function() {
         if (Game.check.isPositionTaken(x, y)) {
           row = document.querySelector('tr:nth-child(' + (1 + y) + ')');
           cell = row.querySelector('td:nth-child(' + (1 + x) + ')');
-          cell.firstChild.classList.add(Game.board[y][x]);
+          cell.firstElementChild.classList.add(Game.board[y][x]);
         }
       }
     }
@@ -31,13 +31,22 @@ Game.do = (function() {
    * A function for changing players both in state and on the screen.
    */
   function changePlayer() {
-    var playerNameEl = document.querySelector('#player-name');
+    var currentPlayerNameEl = document.querySelector('#current-player');
+    var otherPlayerNameEl = document.querySelector('#other-player');
 
+    // Switch players
+    var otherPlayer = Game.currentPlayer
     Game.currentPlayer = (Game.currentPlayer === 'black') ? 'red' : 'black';
 
-    // Update the UI.
-    playerNameEl.className = Game.currentPlayer;
-    playerNameEl.innerHTML = Game.config[Game.currentPlayer + "PlayerName"];
+    // Update the players in the UI.
+    currentPlayerNameEl.classList.remove(otherPlayer);
+    currentPlayerNameEl.classList.add(Game.currentPlayer);
+    currentPlayerNameEl.innerHTML = Game.config[Game.currentPlayer + "PlayerName"];
+
+    otherPlayerNameEl.classList.remove(Game.currentPlayer);
+    otherPlayerNameEl.classList.add(otherPlayer);
+    otherPlayerNameEl.innerHTML = Game.config[otherPlayer + "PlayerName"];
+
   }
 
   /**
@@ -59,11 +68,29 @@ Game.do = (function() {
     return y_pos;
   }
 
+  /**
+   * Handle changes to names on contenteditable fields.
+   *
+   * @param event
+   */
+  function handleNameChange(event) {
+    var playerColor = event.target.className;
+    var changedName = event.target.textContent;
+    var isChangingCurrentPlayer = (playerColor === Game.currentPlayer);
+
+    if (isChangingCurrentPlayer) {
+      Game.config[Game.currentPlayer + "PlayerName"] = changedName;
+    } else {
+      Game.config[playerColor + "PlayerName"] = changedName;
+    }
+  }
+
   return {
     addDiscToBoard,
     printBoard,
     changePlayer,
-    dropToBottom
+    dropToBottom,
+    handleNameChange
   };
 })();
 
@@ -91,7 +118,7 @@ Game.check = (function() {
   function isGameADraw() {
     for (var y = 0; y <= Game.config.boardHeight; y++) {
       for (var x = 0; x <= Game.config.boardLength; x++) {
-        if (isPositionTaken(x, y)) {
+        if (!isPositionTaken(x, y)) {
           return false;
         }
       }

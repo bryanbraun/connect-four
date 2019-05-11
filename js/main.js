@@ -1,23 +1,23 @@
 // Setup the main game logic.
 
 (function () {
-  // @todo: Make name pop-ups more user-friendly. Perhaps optional?
-  Game.config.blackPlayerName = prompt("Please enter the first player's name. This player will use black game pieces.", Game.config.blackPlayerName) || Game.config.blackPlayerName;
-  Game.config.redPlayerName = prompt("Please enter the second player's name. This player will use red game pieces.", Game.config.redPlayerName) || Game.config.redPlayerName;
-
-  var topTextEl = document.querySelector('#top-text');
-  var prefixEl = document.querySelector('#prefix');
-  var playerNameEl = document.querySelector('#player-name');
+  var primaryText = document.querySelector('.primary');
+  var secondaryText = document.querySelector('.secondary');
+  var currentPlayerNameEl = document.querySelector('#current-player');
+  var otherPlayerNameEl = document.querySelector('#other-player');
   var playAgainEl = document.querySelector('#play-again');
   var playAgainBtnEl = document.querySelector('#play-again-btn');
   var gameBoardEl = document.querySelector('#board');
 
-  prefixEl.textContent = Game.config.playerPrefix;
-  playerNameEl.textContent = Game.config[Game.currentPlayer + "PlayerName"];
-  playerNameEl.classList.add(Game.currentPlayer);
+  currentPlayerNameEl.textContent = Game.config["blackPlayerName"];
+  currentPlayerNameEl.classList.add("black");
+  otherPlayerNameEl.textContent = Game.config["redPlayerName"];
+  otherPlayerNameEl.classList.add("red");
 
   playAgainBtnEl.addEventListener('click', () => location.reload());
   gameBoardEl.addEventListener('click', placeGamePiece);
+  currentPlayerNameEl.addEventListener("input", Game.do.handleNameChange);
+  otherPlayerNameEl.addEventListener("input", Game.do.handleNameChange);
 
   function placeGamePiece(e) {
     if (e.target.tagName !== 'BUTTON') return;
@@ -46,12 +46,14 @@
     // Check to see if we have a winner.
     if (Game.check.isVerticalWin() || Game.check.isHorizontalWin() || Game.check.isDiagonalWin()) {
       gameBoardEl.removeEventListener('click', placeGamePiece);
-      prefixEl.textContent = Game.config.winPrefix;
+      primaryText.textContent = Game.config.winMsg + ' ' + Game.config[Game.currentPlayer + "PlayerName"];
+      secondaryText.remove();
       playAgainEl.classList.add('show');
       return;
     } else if (Game.check.isGameADraw()) {
       gameBoardEl.removeEventListener('click', placeGamePiece);
-      topTextEl.textContent = Game.config.drawMsg;
+      primaryText.textContent = Game.config.drawMsg;
+      secondaryText.remove();
       playAgainEl.classList.add('show');
       return;
     }

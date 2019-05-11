@@ -15,11 +15,17 @@
     <img class="keyboard-friendly-img" src="img/arrow-keys.svg" />
   </div>
   <section class="wrapper">
-    <div class="info">
+    <div class="center">
       <h1 class="title">Play Connect Four!</h1>
-      <h2 id="top-text" class="top-text">
-        <span id="prefix"></span>
-        <span id="player-name"></span>
+      <div id="top-text" class="top-text">
+        <h2 class="primary">
+          <span>Current Player is: </span>
+          <span id="current-player" contenteditable="true">Player 1</span>
+        </h2>
+        <h3 class="secondary">
+          <span>Next up is: </span>
+          <span id="other-player" contenteditable="true">Player 2</span>
+        </h3>
       </h2>
       <div id="play-again" class="play-again">
         <a href="#" class="play-again-btn" id="play-again-btn">Play Again</a>
