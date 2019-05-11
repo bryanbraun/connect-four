@@ -21,10 +21,33 @@ Game.do = (function() {
         if (Game.check.isPositionTaken(x, y)) {
           row = document.querySelector('tr:nth-child(' + (1 + y) + ')');
           cell = row.querySelector('td:nth-child(' + (1 + x) + ')');
-          cell.firstChild.classList.add(Game.board[y][x]);
+          cell.firstElementChild.classList.add(Game.board[y][x]);
         }
       }
     }
+  }
+
+  /**
+   * Toggle the scene (between settings and game) both in state and on the screen.
+   */
+  function changeScene() {
+    var setupWrapperEl = document.querySelector('.setup-wrapper');
+    var gameWrapperEl = document.querySelector('.game-wrapper');
+
+    if (Game.scene === 'setup') {
+      setupWrapperEl.classList.remove('is-active');
+      setupWrapperEl.tabIndex = 0;
+      gameWrapperEl.tabIndex = -1;
+      gameWrapperEl.focus();
+      Game.scene === 'game';
+      return;
+    }
+
+    gameWrapperEl.tabIndex = 0;
+    setupWrapperEl.classList.add('is-active');
+    setupWrapperEl.tabIndex = -1;
+    setupWrapperEl.focus();
+    Game.scene === 'setup';
   }
 
   /**
@@ -63,6 +86,7 @@ Game.do = (function() {
     addDiscToBoard,
     printBoard,
     changePlayer,
+    changeScene,
     dropToBottom
   };
 })();
@@ -91,7 +115,7 @@ Game.check = (function() {
   function isGameADraw() {
     for (var y = 0; y <= Game.config.boardHeight; y++) {
       for (var x = 0; x <= Game.config.boardLength; x++) {
-        if (isPositionTaken(x, y)) {
+        if (!isPositionTaken(x, y)) {
           return false;
         }
       }

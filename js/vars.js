@@ -26,3 +26,4 @@ Game.board = [[0,0,0,0,0,0,0],
               [0,0,0,0,0,0,0]];
 
 Game.currentPlayer = Game.config.startingPlayer;
+Game.scene = 'setup';

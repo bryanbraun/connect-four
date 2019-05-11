@@ -1,9 +1,13 @@
-// Setup the main game logic.
+document.querySelector('#lets-play-btn')
+        .addEventListener('click', function() {
+          Game.do.changeScene();
+          Game.main();
+        });
 
-(function () {
-  // @todo: Make name pop-ups more user-friendly. Perhaps optional?
-  Game.config.blackPlayerName = prompt("Please enter the first player's name. This player will use black game pieces.", Game.config.blackPlayerName) || Game.config.blackPlayerName;
-  Game.config.redPlayerName = prompt("Please enter the second player's name. This player will use red game pieces.", Game.config.redPlayerName) || Game.config.redPlayerName;
+// Setup the main game logic.
+Game.main = function() {
+  Game.config.blackPlayerName = document.querySelector('#name-black').value;
+  Game.config.redPlayerName = document.querySelector('#name-red').value
 
   var topTextEl = document.querySelector('#top-text');
   var prefixEl = document.querySelector('#prefix');
@@ -60,4 +64,4 @@
     Game.do.changePlayer();
   };
 
-})();
+};

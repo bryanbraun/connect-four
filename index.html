@@ -3,7 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <title>Connect Four</title>
-  <meta charset="utf-8">
+  <meta name="description" content="Play Connect Four online here. No ads!">
+
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -11,80 +12,187 @@
   <style id="a11y-styles"></style>
 </head>
 <body>
-  <div class="keyboard-friendly">
-    <img class="keyboard-friendly-img" src="img/arrow-keys.svg" />
-  </div>
-  <section class="wrapper">
-    <div class="info">
-      <h1 class="title">Play Connect Four!</h1>
-      <h2 id="top-text" class="top-text">
-        <span id="prefix"></span>
-        <span id="player-name"></span>
-      </h2>
-      <div id="play-again" class="play-again">
-        <a href="#" class="play-again-btn" id="play-again-btn">Play Again</a>
+  <h1 class="page-title">Connect Four</h1>
+  <main class="content-region">
+    <section class="setup-wrapper is-active" tabindex="-1">
+      <div class="setup-content">
+        <h2 class="top-text">Game setup</h2>
+        <div class="player-columns">
+          <div class="player-column">
+            <label class="player-label">First player name (Black):</label>
+            <input class="player-input" type="text" id="name-black" value="Player 1" />
+          </div>
+          <div class="player-column">
+            <label class="player-label">Second player name (Red):</label>
+            <input class="player-input" type="text" id="name-red" value="Player 2" />
+          </div>
+        </div>
+        <div id="lets-play" class="lets-play">
+          <button class="btn lets-play-btn" id="lets-play-btn">Let's Play</a>
+        </div>
       </div>
-    </div>
-    <table id="board" class="board">
-      <tbody>
-        <tr>
-          <td><button type="button"></button></td>
-          <td><button type="button"></button></td>
-          <td><button type="button"></button></td>
-          <td><button type="button"></button></td>
-          <td><button type="button"></button></td>
-          <td><button type="button"></button></td>
-          <td><button type="button"></button></td>
-        </tr>
-        <tr>
-          <td><button type="button"></button></td>
-          <td><button type="button"></button></td>
-          <td><button type="button"></button></td>
-          <td><button type="button"></button></td>
-          <td><button type="button"></button></td>
-          <td><button type="button"></button></td>
-          <td><button type="button"></button></td>
-        </tr>
-        <tr>
-          <td><button type="button"></button></td>
-          <td><button type="button"></button></td>
-          <td><button type="button"></button></td>
-          <td><button type="button"></button></td>
-          <td><button type="button"></button></td>
-          <td><button type="button"></button></td>
-          <td><button type="button"></button></td>
-        </tr>
-        <tr>
-          <td><button type="button"></button></td>
-          <td><button type="button"></button></td>
-          <td><button type="button"></button></td>
-          <td><button type="button"></button></td>
-          <td><button type="button"></button></td>
-          <td><button type="button"></button></td>
-          <td><button type="button"></button></td>
-        </tr>
-        <tr>
-          <td><button type="button"></button></td>
-          <td><button type="button"></button></td>
-          <td><button type="button"></button></td>
-          <td><button type="button"></button></td>
-          <td><button type="button"></button></td>
-          <td><button type="button"></button></td>
-          <td><button type="button"></button></td>
-        </tr>
-        <tr>
-          <td><button type="button"></button></td>
-          <td><button type="button"></button></td>
-          <td><button type="button"></button></td>
-          <td><button type="button"></button></td>
-          <td><button type="button"></button></td>
-          <td><button type="button"></button></td>
-          <td><button type="button"></button></td>
-        </tr>
-      </tbody>
-    </table>
-  </section>
-  <a href="https://github.com/bryanbraun/connect-four"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/365986a132ccd6a44c23a9169022c0b5c890c387/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f7265645f6161303030302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png"></a>
+    </section>
+    <section class="game-wrapper">
+      <div class="game-content">
+        <div class="info">
+          <h2 id="top-text" class="top-text">
+            <span id="prefix" class="prefix"></span>
+            <span id="player-name"></span>
+          </h2>
+          <div id="play-again" class="play-again">
+            <a href="#" class="btn play-again-btn" id="play-again-btn">Play Again</a>
+          </div>
+        </div>
+        <table id="board" class="board">
+          <tbody>
+            <tr>
+              <td>
+                <button type="button"></button>
+              </td>
+              <td>
+                <button type="button"></button>
+              </td>
+              <td>
+                <button type="button"></button>
+              </td>
+              <td>
+                <button type="button"></button>
+              </td>
+              <td>
+                <button type="button"></button>
+              </td>
+              <td>
+                <button type="button"></button>
+              </td>
+              <td>
+                <button type="button"></button>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <button type="button"></button>
+              </td>
+              <td>
+                <button type="button"></button>
+              </td>
+              <td>
+                <button type="button"></button>
+              </td>
+              <td>
+                <button type="button"></button>
+              </td>
+              <td>
+                <button type="button"></button>
+              </td>
+              <td>
+                <button type="button"></button>
+              </td>
+              <td>
+                <button type="button"></button>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <button type="button"></button>
+              </td>
+              <td>
+                <button type="button"></button>
+              </td>
+              <td>
+                <button type="button"></button>
+              </td>
+              <td>
+                <button type="button"></button>
+              </td>
+              <td>
+                <button type="button"></button>
+              </td>
+              <td>
+                <button type="button"></button>
+              </td>
+              <td>
+                <button type="button"></button>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <button type="button"></button>
+              </td>
+              <td>
+                <button type="button"></button>
+              </td>
+              <td>
+                <button type="button"></button>
+              </td>
+              <td>
+                <button type="button"></button>
+              </td>
+              <td>
+                <button type="button"></button>
+              </td>
+              <td>
+                <button type="button"></button>
+              </td>
+              <td>
+                <button type="button"></button>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <button type="button"></button>
+              </td>
+              <td>
+                <button type="button"></button>
+              </td>
+              <td>
+                <button type="button"></button>
+              </td>
+              <td>
+                <button type="button"></button>
+              </td>
+              <td>
+                <button type="button"></button>
+              </td>
+              <td>
+                <button type="button"></button>
+              </td>
+              <td>
+                <button type="button"></button>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <button type="button"></button>
+              </td>
+              <td>
+                <button type="button"></button>
+              </td>
+              <td>
+                <button type="button"></button>
+              </td>
+              <td>
+                <button type="button"></button>
+              </td>
+              <td>
+                <button type="button"></button>
+              </td>
+              <td>
+                <button type="button"></button>
+              </td>
+              <td>
+                <button type="button"></button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="keyboard-friendly">
+        <img class="keyboard-friendly-img" src="img/arrow-keys.svg" />
+      </div>
+    </section>
+  </main>
+
+  <a href="https://github.com/bryanbraun/connect-four"><img style="position: absolute; top: 0; right: 0; border: 0; z-index: 100; max-width: 30%;" src="img/fork-me.svg" alt="Fork me on GitHub" data-canonical-src="https://bryanbraun.com/connect-four/img/fork-me.svg"></a>
 
   <script src="js/vars.js"></script>
   <script src="js/functions.js"></script>
