@@ -3,8 +3,6 @@ var Game = {};
 
 // Global game config
 Game.config = {
-  blackPlayerName: "Player 1",
-  redPlayerName: "Player 2",
   startingPlayer: "black", // Choose 'black' or 'red'.
   takenMsg: "This position is already taken. Please make another choice.",
   drawMsg: "This game is a draw.",

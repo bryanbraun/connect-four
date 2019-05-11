@@ -116,10 +116,10 @@ body {
   top: 4px;
   border-radius: 50%;
 }
-.primary .red::after {
+.primary [contenteditable="true"].red::after {
   background: linear-gradient(to bottom, #ff1616 0%,#ad0505 100%);
 }
-.primary .black::after {
+.primary [contenteditable="true"].black::after {
   background: linear-gradient(to bottom, #333 0%,#000000 100%);
 }
 
@@ -127,7 +127,7 @@ body {
   color: black;
   margin: 0 0 0.75rem;
 }
-.primary [contenteditable] {
+.primary [contenteditable="true"] {
   border-bottom: 1px solid black;
   padding: 0 50px 0 6px;
 }
@@ -135,7 +135,7 @@ body {
   color: #bbb;
   margin: 0;
 }
-.secondary [contenteditable] {
+.secondary [contenteditable="true"] {
   border-bottom: 1px solid #bbb;
   padding: 0 50px 0 5px;
 }

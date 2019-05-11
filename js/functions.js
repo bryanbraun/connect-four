@@ -36,16 +36,19 @@ Game.do = (function() {
 
     // Switch players
     var otherPlayer = Game.currentPlayer
+    var otherPlayerName = currentPlayerNameEl.textContent;
+    var currentPlayerName = otherPlayerNameEl.textContent;
     Game.currentPlayer = (Game.currentPlayer === 'black') ? 'red' : 'black';
+
 
     // Update the players in the UI.
     currentPlayerNameEl.classList.remove(otherPlayer);
     currentPlayerNameEl.classList.add(Game.currentPlayer);
-    currentPlayerNameEl.innerHTML = Game.config[Game.currentPlayer + "PlayerName"];
+    currentPlayerNameEl.textContent = currentPlayerName;
 
     otherPlayerNameEl.classList.remove(Game.currentPlayer);
     otherPlayerNameEl.classList.add(otherPlayer);
-    otherPlayerNameEl.innerHTML = Game.config[otherPlayer + "PlayerName"];
+    otherPlayerNameEl.textContent = otherPlayerName;
 
   }
 
@@ -68,29 +71,11 @@ Game.do = (function() {
     return y_pos;
   }
 
-  /**
-   * Handle changes to names on contenteditable fields.
-   *
-   * @param event
-   */
-  function handleNameChange(event) {
-    var playerColor = event.target.className;
-    var changedName = event.target.textContent;
-    var isChangingCurrentPlayer = (playerColor === Game.currentPlayer);
-
-    if (isChangingCurrentPlayer) {
-      Game.config[Game.currentPlayer + "PlayerName"] = changedName;
-    } else {
-      Game.config[playerColor + "PlayerName"] = changedName;
-    }
-  }
-
   return {
     addDiscToBoard,
     printBoard,
     changePlayer,
-    dropToBottom,
-    handleNameChange
+    dropToBottom
   };
 })();
 

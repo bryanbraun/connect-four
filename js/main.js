@@ -1,17 +1,16 @@
 // Setup the main game logic.
 
 (function () {
-  var primaryText = document.querySelector('.primary');
-  var secondaryText = document.querySelector('.secondary');
+  var prefixEl = document.querySelector('#prefix');
+  var primaryTextEl = document.querySelector('.primary');
+  var secondaryTextEl = document.querySelector('.secondary');
   var currentPlayerNameEl = document.querySelector('#current-player');
   var otherPlayerNameEl = document.querySelector('#other-player');
   var playAgainEl = document.querySelector('#play-again');
   var playAgainBtnEl = document.querySelector('#play-again-btn');
   var gameBoardEl = document.querySelector('#board');
 
-  currentPlayerNameEl.textContent = Game.config["blackPlayerName"];
   currentPlayerNameEl.classList.add("black");
-  otherPlayerNameEl.textContent = Game.config["redPlayerName"];
   otherPlayerNameEl.classList.add("red");
 
   playAgainBtnEl.addEventListener('click', () => location.reload());
@@ -46,14 +45,15 @@
     // Check to see if we have a winner.
     if (Game.check.isVerticalWin() || Game.check.isHorizontalWin() || Game.check.isDiagonalWin()) {
       gameBoardEl.removeEventListener('click', placeGamePiece);
-      primaryText.textContent = Game.config.winMsg + ' ' + Game.config[Game.currentPlayer + "PlayerName"];
-      secondaryText.remove();
+      prefixEl.textContent = Game.config.winMsg;
+      currentPlayerNameEl.contentEditable = false;
+      secondaryTextEl.remove();
       playAgainEl.classList.add('show');
       return;
     } else if (Game.check.isGameADraw()) {
       gameBoardEl.removeEventListener('click', placeGamePiece);
-      primaryText.textContent = Game.config.drawMsg;
-      secondaryText.remove();
+      primaryTextEl.textContent = Game.config.drawMsg;
+      secondaryTextEl.remove();
       playAgainEl.classList.add('show');
       return;
     }
