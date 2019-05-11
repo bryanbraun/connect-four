@@ -71,11 +71,24 @@ Game.do = (function() {
     return y_pos;
   }
 
+  /**
+   * Handle edge-cases in name changes
+   * @param event
+   */
+  function handleNameChange(event) {
+    // Prevent the default "newline" behavior when hitting "Enter"
+    if (event.keyCode === 13) {
+      event.preventDefault();
+      document.body.focus();
+    }
+  }
+
   return {
     addDiscToBoard,
     printBoard,
     changePlayer,
-    dropToBottom
+    dropToBottom,
+    handleNameChange
   };
 })();
 

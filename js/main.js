@@ -10,13 +10,10 @@
   var playAgainBtnEl = document.querySelector('#play-again-btn');
   var gameBoardEl = document.querySelector('#board');
 
-  currentPlayerNameEl.classList.add("black");
-  otherPlayerNameEl.classList.add("red");
-
   playAgainBtnEl.addEventListener('click', () => location.reload());
   gameBoardEl.addEventListener('click', placeGamePiece);
-  currentPlayerNameEl.addEventListener("input", Game.do.handleNameChange);
-  otherPlayerNameEl.addEventListener("input", Game.do.handleNameChange);
+  currentPlayerNameEl.addEventListener("keydown", Game.do.handleNameChange);
+  otherPlayerNameEl.addEventListener("keydown", Game.do.handleNameChange);
 
   function placeGamePiece(e) {
     if (e.target.tagName !== 'BUTTON') return;
